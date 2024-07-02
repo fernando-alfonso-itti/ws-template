@@ -1,6 +1,6 @@
 # WS-POC
 
-Este proyecto es un backend desarrollado en NestJS que sirve tanto para WebSockets como para APIs REST. Utiliza Socket.IO para la comunicación en tiempo real y cuenta con un sistema de notificaciones que se envían a través de WebSockets. También implementa un sistema de sesiones en memoria para manejar la conexión y desconexión de los usuarios.
+Este proyecto es un backend desarrollado en [NestJS](https://docs.nestjs.com/) que sirve tanto para WebSockets como para APIs REST. Utiliza [Socket.IO](https://socket.io/get-started/) para la comunicación en tiempo real y cuenta con un sistema de notificaciones que se envían a través de WebSockets. También implementa un sistema de sesiones en memoria para manejar la conexión y desconexión de los usuarios.
 
 ## Estructura del Proyecto
 
@@ -37,7 +37,7 @@ Sigue estos pasos para instalar y ejecutar el proyecto:
 
 ### Clonar el repositorio
 ```bash
-  git clone <URL_DEL_REPOSITORIO>
+  git clone https://github.com/fernando-alfonso-itti/ws-template.git
   cd ws-poc
 ```
 
@@ -231,3 +231,7 @@ export class InMemorySessionStore {
 }
 
 ```
+## Recursos relacionados
+- [Documentación Nest js](https://docs.nestjs.com/)
+- [Documentación Socket.io](https://socket.io/get-started/)
+
