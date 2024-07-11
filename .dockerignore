@@ -1,0 +1,17 @@
+node_modules
+.env
+*.log
+dist
+coverage
+test
+tests
+Dockerfile
+docker-compose.yml
+.git
+.gitignore
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
