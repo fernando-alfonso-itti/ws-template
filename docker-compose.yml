@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+    redis:
+        image: 'redis:latest'
+        container_name: 'redis'
+        ports:
+            - '6379:6379'
+        networks:
+            - websocket-network
+
+    ws-poc1:
+        build: .
+        command: npm run start
+        ports:
+            - '5010:3001'
+        environment:
+            - PORT=3001
+            - REDIS_HOST=redis
+        depends_on:
+            - redis
+        networks:
+            - websocket-network
+
+    ws-poc2:
+        build: .
+        command: npm run start
+        ports:
+            - '5011:3001'
+        environment:
+            - PORT=3001
+            - REDIS_HOST=redis
+        depends_on:
+            - redis
+        networks:
+            - websocket-network
+
+    ws-poc3:
+        build: .
+        command: npm run start
+        ports:
+            - '5012:3001'
+        environment:
+            - PORT=3001
+            - REDIS_HOST=redis
+        depends_on:
+            - redis
+        networks:
+            - websocket-network
+
+    ws-poc4:
+        build: .
+        command: npm run start
+        ports:
+            - '5013:3001'
+        environment:
+            - PORT=3001
+            - REDIS_HOST=redis
+        depends_on:
+            - redis
+        networks:
+            - websocket-network
+
+networks:
+    websocket-network:
+        external: true

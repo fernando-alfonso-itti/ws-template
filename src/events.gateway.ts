@@ -7,13 +7,16 @@ import {
     WebSocketGateway,
     WebSocketServer,
 } from '@nestjs/websockets';
+import Redis from 'ioredis';
 import { Server, Socket } from 'socket.io';
+import { createAdapter } from 'socket.io-redis';
 
 @WebSocketGateway({
     cors: {
         origin: '*',
     },
     transports: ['websocket'],
+    perMessageDeflate: false,
 })
 export class EventsGateway
     implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit
@@ -21,9 +24,29 @@ export class EventsGateway
     @WebSocketServer()
     server: Server;
 
-    constructor(private readonly sessionStore: InMemorySessionStore) {}
+    pubClient: Redis;
+    subClient: Redis;
 
-    afterInit(server: Server) {
+    constructor(private readonly sessionStore: InMemorySessionStore) {
+        const redisHost = process.env.REDIS_HOST || 'localhost';
+        const redisPort = parseInt(process.env.REDIS_PORT ?? '6379') || 6379;
+
+        this.pubClient = new Redis({
+            host: redisHost,
+            port: redisPort,
+        });
+        this.subClient = this.pubClient.duplicate();
+    }
+
+    async afterInit(server: Server) {
+        // Check if clients are already connected
+        this.server.adapter(
+            createAdapter({
+                pubClient: this.pubClient,
+                subClient: this.subClient,
+            }),
+        );
+
         server.use((socket, next) =>
             new WsAuthMiddleware(this.sessionStore).use(socket, next),
         );

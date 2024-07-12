@@ -12,6 +12,7 @@ import { NotificationService } from '../services/notification.service';
         origin: '*',
     },
     transports: ['websocket'],
+    perMessageDeflate: false,
 })
 export class NotificationGateway {
     @WebSocketServer()

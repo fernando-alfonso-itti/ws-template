@@ -18,10 +18,6 @@ export class NotificationService {
         const sended = this.server
             .to(data.userId)
             .emit('newNotification', data);
-        if (!sended) {
-            throw new Error('Notification not sended');
-        }
-        // Hacer algo con la notificación enviada
         return sended;
     }
 
